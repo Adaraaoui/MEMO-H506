@@ -1,0 +1,15 @@
+__pycache__
+*.pyc
+/.history
+/.mypy.ini
+/.mypy_cache
+/build
+/.pytest_cache
+/.ipynb_checkpoints
+/_csv
+/_pics
+/.VSCodeCounter
+/.jupytest
+/.ipynb_checkpoints
+/.idea
+/.vscode

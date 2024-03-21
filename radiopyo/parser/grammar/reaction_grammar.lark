@@ -1,0 +1,50 @@
+// Main node definition
+start: kreaction | ereaction | species
+
+// Main rules for reactions
+ereaction: species~1 "--"~1 enzyme ">>"~1 products
+kreaction: reactants "->"~1 products
+
+reactants: species_list
+products: species_list
+
+// Generic species list in a reaction
+species_list: species ("+"~1 species)*
+
+// Species definitions
+species: multiple? (atom | molecule | radical | ion) | element
+enzyme: multiple? (atom | molecule) | element
+element: /\w+/ // Some species like 'catalase' doesn't have a formula
+
+//Charged species
+ion: cation | anion
+cation: (atom | molecule | radical) PLUS+
+anion: ELECTRON | ((atom | molecule | radical) MINUS+)
+
+//Radical species
+radical: (atom|molecule) RADICAL?
+
+//Molecular species 
+molecule: sub_mol (sub_mol)*
+sub_mol: atom stoi? 
+atom: CAPITAL_LETTER LOWER_LETTER?
+
+multiple: INT
+stoi: INT
+
+ELECTRON: "e_aq"
+CHARGE: (PLUS | MINUS)
+
+CAPITAL_LETTER: /[A-Z]/
+LOWER_LETTER: /[a-z]/
+PLUS: "+" | "_plus"
+MINUS: "-" | "_minus"
+RADICAL: "_r"
+
+%import common.WORD 
+%import common.WS 
+%import common.INT
+%import common.DIGIT
+%import common.LETTER
+
+%ignore WS
